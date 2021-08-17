@@ -128,8 +128,8 @@ grafana:
 prometheusOperator:
   tls:
     enabled: false
-  admissionWebhooks:
-    enabled: false
+#  admissionWebhooks:
+#    enabled: false
 #prometheusOperator:
 #  resources:
 #    limits:
