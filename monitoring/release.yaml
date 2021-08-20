@@ -70,10 +70,10 @@ spec:
     grafana:
       plugins:
       - grafana-piechart-panel
-    kube-state-metrics:
-      image:
-        repository: eddiezane/kube-state-metrics
-        tag: v1.9.7
+#   kube-state-metrics:
+#     image:
+#       repository: eddiezane/kube-state-metrics
+#       tag: v1.9.7
     kubeControllerManager:
       enabled: false
     kubeEtcd:
