@@ -16,7 +16,7 @@ spec:
               service:
                 name: kube-prometheus-stack-grafana
                 port:
-                  number: 80
+                  number: 3000
           - path: /prometheus
             pathType: Prefix
             backend:
