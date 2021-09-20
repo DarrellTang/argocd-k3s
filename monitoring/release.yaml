@@ -16,30 +16,3 @@ spec:
   interval: 5m0s
   valuesFrom:
       valuesKey: custom-values.yaml
-#   kube-state-metrics:
-#     image:
-#       repository: eddiezane/kube-state-metrics
-#       tag: v1.9.7
-    kubeControllerManager:
-      enabled: false
-    kubeEtcd:
-      enabled: false
-    kubeScheduler:
-      enabled: false
-    prometheus:
-      prometheusSpec:
-        retention: 3d
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              accessModes:
-              - ReadWriteOnce
-              resources:
-                requests:
-                  storage: 10Gi
-    prometheusOperator:
-      admissionWebhooks:
-        enabled: false
-      tls:
-        enabled: false
-
