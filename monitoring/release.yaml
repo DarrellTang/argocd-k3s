@@ -11,8 +11,9 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
+        namespace: monitoring
       version: '*'
-  install: {}
-  interval: 5m0s
+      interval: 1m
+  interval: 5m
   valuesFrom:
       valuesKey: custom-values.yaml
