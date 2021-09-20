@@ -14,62 +14,8 @@ spec:
       version: '*'
   install: {}
   interval: 5m0s
-  values:
-    alertmanager:
-      alertmanagerSpec:
-        storage:
-          volumeClaimTemplate:
-            spec:
-              accessModes:
-              - ReadWriteOnce
-              resources:
-                requests:
-                  storage: 1Gi
-      config:
-        global:
-          smtp_from: you@gmail.com
-          smtp_require_tls: false
-          smtp_smarthost: mailhog:1025
-        inhibit_rules:
-        - equal:
-          - alertname
-          - namespace
-          source_match:
-            severity: critical
-          target_match:
-            severity: warning
-        receivers:
-        - name: "null"
-        - email_configs:
-          - send_resolved: true
-            to: youremail@gmail.com
-          name: email
-        route:
-          group_by:
-          - job
-          group_interval: 5m
-          group_wait: 30s
-          receiver: email
-          repeat_interval: 1h
-          routes:
-          - match:
-              alertname: Watchdog
-            receiver: "null"
-          - match:
-              alertname: CPUThrottlingHigh
-            receiver: "null"
-          - match:
-              alertname: KubeMemoryOvercommit
-            receiver: "null"
-          - match:
-              alertname: KubeCPUOvercommit
-            receiver: "null"
-          - match:
-              alertname: KubeletTooManyPods
-            receiver: "null"
-    grafana:
-      plugins:
-      - grafana-piechart-panel
+  valuesFrom:
+      valuesKey: custom-values.yaml
 #   kube-state-metrics:
 #     image:
 #       repository: eddiezane/kube-state-metrics
