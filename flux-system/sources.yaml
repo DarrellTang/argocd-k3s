@@ -1,0 +1,26 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"source.toolkit.fluxcd.io/v1beta1","kind":"GitRepository","metadata":{"annotations":{"kustomize.toolkit.fluxcd.io/checksum":"1bb8d75a2490328bd872540575a558258aea208f"},"labels":{"kustomize.toolkit.fluxcd.io/name":"flux-system","kustomize.toolkit.fluxcd.io/namespace":"flux-system"},"name":"flux-system","namespace":"flux-system"},"spec":{"interval":"1m0s","ref":{"branch":"main"},"secretRef":{"name":"flux-system"},"url":"https://gitlab.com/darrelltang/flux-k3s.git"}}
+    kustomize.toolkit.fluxcd.io/checksum: 1bb8d75a2490328bd872540575a558258aea208f
+    reconcile.fluxcd.io/requestedAt: "2021-09-20T20:19:29.2900992-07:00"
+  labels:
+    kustomize.toolkit.fluxcd.io/name: flux-system
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
+  name: flux-system
+  namespace: flux-system
+spec:
+  ignore: |
+    custom-values.yaml
+  gitImplementation: go-git
+  interval: 1m0s
+  ref:
+    branch: main
+  secretRef:
+    name: flux-system
+  timeout: 20s
+  url: https://gitlab.com/darrelltang/flux-k3s.git
+
