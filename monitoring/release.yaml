@@ -16,4 +16,6 @@ spec:
       interval: 1m
   interval: 5m
   valuesFrom:
+    - kind: ConfigMap
       valuesKey: custom-values.yaml
+      name: custom-values
