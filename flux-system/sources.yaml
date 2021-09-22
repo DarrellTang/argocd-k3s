@@ -11,7 +11,7 @@ metadata:
   namespace: flux-system
 spec:
   ignore: |
-    monitoring/custom-values.yaml
+    ../monitoring/custom-values.yaml
   gitImplementation: go-git
   interval: 1m0s
   ref:
