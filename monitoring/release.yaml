@@ -13,5 +13,6 @@ spec:
         name: prometheus-community
         namespace: monitoring
       version: '*'
-      valuesFile: monitoring/custom-values.yaml
+      valuesFiles:
+      - monitoring/custom-values.yaml
   interval: 1m
