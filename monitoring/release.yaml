@@ -584,6 +584,13 @@ spec:
       podLabels:
         jobLabel: node-exporter
     prometheusOperator:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 150Mi
+        requests:
+          cpu: 10m
+          memory: 75Mi
       admissionWebhooks:
         caBundle: ""
         certManager:
