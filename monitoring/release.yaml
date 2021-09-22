@@ -639,7 +639,6 @@ spec:
         sha: ""
         tag: v0.50.0
       prometheusInstanceNamespaces: []
-      resources: {}
       secretFieldSelector: ""
       securityContext:
         fsGroup: 65534
