@@ -6,5 +6,5 @@ metadata:
   namespace: networking
 spec:
   interval: 5m0s
-  url: https://github.com/MoJo2600/pihole-kubernetes/charts
+  url: https://github.com/MoJo2600/pihole-kubernetes
 
