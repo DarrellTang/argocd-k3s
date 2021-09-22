@@ -14,7 +14,7 @@ spec:
         namespace: monitoring
       version: '*'
       interval: 1m
-  interval: 5m
+  interval: 1m
   valuesFrom:
     - kind: ConfigMap
       valuesKey: custom-values.yaml
