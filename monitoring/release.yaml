@@ -665,9 +665,7 @@ spec:
         tag: v0.17.2
       thanosRulerInstanceNamespaces: []
       tls:
-        enabled: true
-        internalPort: 10250
-        tlsMinVersion: VersionTLS13
+        enabled: false
       tlsProxy:
         enabled: false
       tolerations: []
