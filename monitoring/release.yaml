@@ -13,9 +13,5 @@ spec:
         name: prometheus-community
         namespace: monitoring
       version: '*'
-      interval: 1m
+      valuesFile: monitoring/custom-values.yaml
   interval: 1m
-  valuesFrom:
-    - kind: ConfigMap
-      valuesKey: custom-values.yaml
-      name: custom-values
