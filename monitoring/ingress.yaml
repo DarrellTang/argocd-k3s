@@ -6,7 +6,7 @@ metadata:
 
 spec:
   rules:
-    - host: grafana.test
+    - host: grafana.tang.local
       http:
         paths:
           - path: /
@@ -16,7 +16,7 @@ spec:
                 name: kube-prometheus-stack-grafana
                 port:
                   number: 80
-    - host: prometheus.test
+    - host: prometheus.tang.local
       http:
         paths:
           - path: /
@@ -26,7 +26,7 @@ spec:
                 name: kube-prometheus-stack-prometheus
                 port:
                   number: 9090
-    - host: alertmanager.test
+    - host: alertmanager.tang.local
       http:
         paths:
           - path: /
