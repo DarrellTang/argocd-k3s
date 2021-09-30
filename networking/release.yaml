@@ -26,7 +26,7 @@ spec:
     dnsmasq:
       customCnameEntries: []
       customDnsEntries:
-      - address=/pihole.tang.local/10.0.0.250
+      - address=/pihole.tang.local/10.0.0.231
       - address=/grafana.tang.local/10.0.0.250
       - address=/alertmanager.tang.local/10.0.0.250
       - address=/prometheus.tang.local/10.0.0.250
