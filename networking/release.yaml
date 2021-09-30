@@ -36,7 +36,7 @@ spec:
     image:
       pullPolicy: IfNotPresent
       repository: pihole/pihole
-      tag: v5.8.1
+      tag: latest
     maxSurge: 1
     maxUnavailable: 1
     monitoring:
