@@ -3,7 +3,8 @@ apiVersion: networking.k8s.io/v1
 metadata:
   name: traefik
   namespace: networking
-
+  annotations:
+    traefik.ingress.kubernetes.io/app-root: "/admin"
 spec:
   rules:
     - host: pihole.tang.local
