@@ -1,2 +1,2 @@
 monitoring/custom-values.yaml
-networking/custom-values.yaml
+networking/*-values.yaml

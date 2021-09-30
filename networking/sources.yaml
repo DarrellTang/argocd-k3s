@@ -8,3 +8,14 @@ spec:
   interval: 5m0s
   url: https://mojo2600.github.io/pihole-kubernetes/
 
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: metallb
+  namespace: networking
+spec:
+  interval: 10m0s
+  timeout: 1m0s
+  url: https://metallb.github.io/metallb
+
