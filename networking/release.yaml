@@ -85,10 +85,10 @@ spec:
       annotations:
         metallb.universe.tf/allow-shared-ip: pihole-svc
       http:
-        enabled: true
+        enabled: false
         port: 80
       https:
-        enabled: true
+        enabled: false
         port: 443
       loadBalancerIP: ""
       type: LoadBalancer
