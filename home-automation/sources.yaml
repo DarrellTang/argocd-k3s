@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: magicmirror
+  namespace: home-automation
+spec:
+  interval: 5m0s
+  url: https://gitlab.com/khassel/magicmirror-helm
