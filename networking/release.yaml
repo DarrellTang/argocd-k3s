@@ -12,74 +12,27 @@ spec:
         kind: HelmRepository
         name: pihole
       version: '*'
-  install: {}
   interval: 5m0s
   values:
     DNS1: 8.8.8.8
     DNS2: 8.8.4.4
-    adlists: {}
     admin:
       existingSecret: pihole-admin
       passwordKey: password
     adminPassword: admin
-    affinity: {}
-    antiaff:
-      avoidRelease: pihole1
-      enabled: false
-      strict: true
-    blacklist: {}
     customVolumes:
       config: {}
       enabled: false
-    dnsHostPort:
-      enabled: false
-      port: 53
     dnsmasq:
-      additionalHostsEntries: []
       customCnameEntries: []
-      customDnsEntries: []
-      customSettings: null
-      staticDhcpEntries: []
-      upstreamServers: []
-    doh:
-      enabled: false
-      envVars: {}
-      name: cloudflared
-      probes:
-        liveness:
-          enabled: true
-          failureThreshold: 10
-          initialDelaySeconds: 60
-          timeoutSeconds: 5
-      pullPolicy: IfNotPresent
-      repository: crazymax/cloudflared
-      tag: latest
-    dualStack:
-      enabled: false
+      customDnsEntries:
+      - address=/pihole.tang.local/10.0.0.250
+      - address=/grafana.tang.local/10.0.0.250
+      - address=/alertmanager.tang.local/10.0.0.250
+      - address=/prometheus.tang.local/10.0.0.250
     extraEnvVars:
       TZ: America/Los_Angeles
-    extraEnvVarsSecret: {}
-    ftl: {}
-    hostNetwork: "false"
     hostname: pihole
-    image:
-      pullPolicy: IfNotPresent
-      repository: pihole/pihole
-      tag: v5.8.1
-    ingress:
-      annotations:
-        kubernetes.io/ingress.class: nginx
-        kubernetes.io/tls-acme: "true"
-      enabled: false
-      hosts:
-      - chart-example.local
-      path: /
-      tls:
-      - hosts:
-        - chart-example.local
-        secretName: chart-example-tls
-    maxSurge: 1
-    maxUnavailable: 1
     monitoring:
       podMonitor:
         enabled: false
@@ -93,21 +46,17 @@ spec:
         resources:
           limits:
             memory: 128Mi
-    nodeSelector: {}
     persistentVolumeClaim:
       accessModes:
       - ReadWriteOnce
-      annotations: {}
       enabled: false
       size: 500Mi
-    podAnnotations: {}
     podDnsConfig:
       enabled: true
       nameservers:
       - 127.0.0.1
       - 8.8.8.8
       policy: None
-    privileged: "false"
     probes:
       liveness:
         enabled: true
@@ -119,28 +68,16 @@ spec:
         failureThreshold: 3
         initialDelaySeconds: 60
         timeoutSeconds: 5
-    regex: {}
     replicaCount: 1
-    resources: {}
-    serviceDhcp:
-      annotations: {}
-      enabled: false
-      externalTrafficPolicy: Local
-      loadBalancerIP: ""
-      loadBalancerIPv6: ""
-      type: NodePort
     serviceDns:
       annotations:
         metallb.universe.tf/allow-shared-ip: pihole-svc
-      externalTrafficPolicy: Local
       loadBalancerIP: ""
-      loadBalancerIPv6: ""
-      mixedService: false
       port: 53
       type: LoadBalancer
     serviceWeb:
-      annotations: {}
-      externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/allow-shared-ip: pihole-svc
       http:
         enabled: true
         port: 80
@@ -148,15 +85,8 @@ spec:
         enabled: true
         port: 443
       loadBalancerIP: ""
-      loadBalancerIPv6: ""
       type: LoadBalancer
     strategyType: RollingUpdate
-    tolerations: []
-    topologySpreadConstraints: []
-    virtualHost: pi.hole
-    webHttp: "80"
-    webHttps: "443"
-    whitelist: {}
 
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
@@ -172,7 +102,6 @@ spec:
         kind: HelmRepository
         name: metallb
       version: '*'
-  install: {}
   interval: 5m0s
   values:
     configInline:
