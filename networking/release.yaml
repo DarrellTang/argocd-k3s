@@ -75,6 +75,8 @@ spec:
         initialDelaySeconds: 60
         timeoutSeconds: 5
     replicaCount: 1
+    serviceDhcp:
+      enabled: false
     serviceDns:
       annotations:
         metallb.universe.tf/allow-shared-ip: pihole-svc
