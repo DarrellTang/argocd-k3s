@@ -6,4 +6,4 @@ metadata:
   namespace: home-automation
 spec:
   interval: 5m0s
-  url: https://gitlab.com/khassel/magicmirror-helm
+  url: https://gitlab.com/khassel/magicmirror-helm/Chart.yaml
