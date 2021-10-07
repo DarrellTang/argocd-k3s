@@ -13,6 +13,7 @@ spec:
         name: pihole
       version: '*'
   interval: 5m0s
+  suspend: true
   values:
     DNS1: 8.8.8.8
     DNS2: 8.8.4.4
