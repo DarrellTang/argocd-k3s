@@ -1,3 +1,2 @@
 monitoring/custom-values.yaml
-monitoring/ingress.yaml
 networking/*-values.yaml

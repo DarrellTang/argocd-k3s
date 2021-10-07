@@ -625,8 +625,8 @@ grafana:
 
   grafana.ini:
     server:
-      domain: grafana.darrellandranae.com
-      root_url: http://10.0.0.250/grafana
+      domain: grafana.tang.local
+      root_url: http://grafana.tang.local
       serve_from_sub_path: true
 
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
@@ -1627,8 +1627,8 @@ prometheusOperator:
   secretFieldSelector: ""
 
 server:
-  baseURL: http://10.0.0.250/prometheus
-  prefixURL: /prometheus
+  baseURL: http://prometheus.tang.local
+  prefixURL: /
 
 ## Deploy a Prometheus instance
 ##
@@ -1826,7 +1826,7 @@ prometheus:
     # hosts:
     #   - prometheus.domain.com
     hosts: 
-      prometheus.tang.local
+    - prometheus.tang.local
 
     ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
     ##
