@@ -26,11 +26,7 @@ spec:
       enabled: false
     dnsmasq:
       customCnameEntries: []
-      customDnsEntries:
-      - address=/pihole.tang.local/10.0.0.230
-      - address=/grafana.tang.local/10.0.0.230
-      - address=/alertmanager.tang.local/10.0.0.230
-      - address=/prometheus.tang.local/10.0.0.230
+      customDnsEntries: []
     extraEnvVars:
       TZ: America/Los_Angeles
     hostname: pihole
