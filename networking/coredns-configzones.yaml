@@ -4,7 +4,7 @@ metadata:
   name: coredns-zones
   namespace: networking
 data:
-    db.tang.local: |
+    tang.local: |
       $TTL  30M
       @   IN  SOA  ns1.tang.local.  tang.local.  (
                       2021100700  ; Serial
