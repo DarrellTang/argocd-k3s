@@ -1,7 +1,7 @@
 monitoring/custom-values.yaml
 networking/*-values.yaml
-home-automation/templates/**
-home-automation/config/**
-home-automation/Chart.yaml
-home-automation/README.md
-home-automation/values.yaml
+home-automation/magicmirror/templates/**
+home-automation/magicmirror/config/**
+home-automation/magicmirror/Chart.yaml
+home-automation/magicmirror/README.md
+home-automation/magicmirror/values.yaml
