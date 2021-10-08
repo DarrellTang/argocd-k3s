@@ -1,5 +1,5 @@
 monitoring/custom-values.yaml
-networking/*-values.yaml
+networking/**/*-values.yaml
 home-automation/magicmirror/templates/**
 home-automation/magicmirror/config/**
 home-automation/magicmirror/Chart.yaml
