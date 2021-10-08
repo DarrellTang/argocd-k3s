@@ -22,9 +22,4 @@ data:
         health
         # Return HTTP 200 OK on :8081 when CoreDNS and plugins are ready
         ready
-        . {
-            forward . 10.0.0.235 {
-                except tang.local
-            }
-        }
     }    
