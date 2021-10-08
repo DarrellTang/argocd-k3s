@@ -1,3 +1,5 @@
+*.png
+*.py
 monitoring/custom-values.yaml
 networking/**/*-values.yaml
 home-automation/magicmirror/templates/**
