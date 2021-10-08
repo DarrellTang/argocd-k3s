@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "magicmirror.fullname" . }}
+  labels:
+    app: {{ template "magicmirror.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  {{- range $key, $value := .Values.service.labels }}
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
+{{ if .Values.service.annotations}}
+  annotations:
+    {{- range $key, $value := .Values.service.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+{{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+  selector:
+    app: {{ template "magicmirror.name" . }}
+    release: {{ .Release.Name }}
+  {{- if eq .Values.service.type "LoadBalancer"}}
+  {{- if .Values.service.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges:
+  {{- range .Values.service.loadBalancerSourceRanges }}
+  - {{ . }}
+  {{- end }}
+  {{- end -}}
+  {{- if .Values.service.loadBalancerIP}}
+  loadBalancerIP: {{.Values.service.loadBalancerIP}}
+  {{- end }}
+  {{- with .Values.service.externalIPs }}
+  externalIPs:
+  {{- toYaml . | nindent 2 }}
+  {{- end -}}
+  {{- end -}}

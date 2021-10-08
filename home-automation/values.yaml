@@ -1,0 +1,133 @@
+image: karsten13/magicmirror:alpine
+imagePullPolicy: Always
+
+replicaCount: 1
+
+# This will use the default deployment strategy unless it is overriden
+deploymentStrategy: {}
+
+# Set security context for MagicMirror pod
+securityContext:
+  fsGroup: 1000
+  runAsUser: 1000
+  runAsGroup: 1000
+
+# if running without ingress:
+# run service as loadbalancer, your can access your MagicMirror under 192.168.0.38:8080
+# service:
+#   type: LoadBalancer
+#   port: 8080
+#   externalIPs:
+#     - 192.168.0.38
+
+service:
+  type: LoadBalancer
+  port: 8080
+
+ingress:
+  # type: "nginx"
+  type: "traefik"
+  enabled: false
+  hostname: ""
+  path: "/mm"
+  tls: false
+
+# Environment variables to attach to the pods
+env:
+- name: TZ
+  value: Europe/Berlin
+
+persistence:
+  enabled: false
+  ## Set annotations on pvc
+  annotations: {}
+  ## Specify an existing volume claim instead of creating a new one.
+  ## When using this option all following options like storageClass, accessMode and size are ignored.
+  # existingClaim:
+
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  storageClass:
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  # hostPath: /home
+  # persistentVolumeReclaimPolicy: Recycle
+
+# List of modules to install.
+modules:
+  install: []
+# For example:
+modules:
+  install:
+  - "https://github.com/fewieden/MMM-AlarmClock"
+  - "https://github.com/Lavve/MMM-MagicMover"
+
+config: |
+  language: "en",
+  locale: "en-US",
+  logLevel: ["INFO", "LOG", "WARN", "ERROR"], // Add "DEBUG" for even more logging
+  timeFormat: 12,
+  units: "imperial",
+  modules: [
+    {
+      module: "alert",
+    },
+    {
+      module: "updatenotification",
+      position: "top_bar"
+    },
+    {
+      module: "clock",
+      position: "top_left"
+    },
+    {
+      module: "calendar",
+      header: "Doctors & Activities",
+      position: "top_right",
+      config: {
+        calendars: [
+          {
+            symbol: "calendar-check",
+            url: "https://calendar.google.com/calendar/ical/g9gp1ovling0lp8hcmkjbno1no%40group.calendar.google.com/private-3777cf840ff98f6e4499fedcdc7ae471/basic.ics"
+          }
+        ]
+      }
+    },
+    {
+      module: "weather",
+      position: "bottom_left",
+      config: {
+        weatherProvider: "openweathermap",
+        type: "current",
+        location: "El Cajon",
+        locationID: "5345529", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+        apiKey: "343a8f0aec0111db54e20a4813ecbbd3"
+      }
+    },
+    {
+      module: 'MMM-AlarmClock',
+      position: 'bottom_right',
+      config: {
+        alarms: [
+          {time: "07:50", days: [1,2,3,4,5], title: "Almost Time!", message: "Almost time to leave!", sound: "blackforest.mp3"},
+          {time: "20:30", days: [1,2,3,4,5], title: "Bedtime Prep!", message: "30min until bed! Get your snacks & drinks! Pack your school stuff!", sound: "blackforest.mp3"},
+        ],
+        timer: 30000
+      }
+    },
+    {
+      module: "MMM-MagicMover",
+      config: {
+        updateInterval: 60 * 1000,
+        ignoredRegions: [],
+        maxMove: 20,
+      }
+    },
+  ]
+
+css: |
+  /* put your custom css here */

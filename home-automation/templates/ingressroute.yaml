@@ -1,0 +1,43 @@
+{{- if and (.Values.ingress.enabled) (eq .Values.ingress.type "traefik") }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ template "magicmirror.fullname" . }}-strip
+spec:
+  stripPrefix:
+    prefixes:
+      - {{ .Values.ingress.path }}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ template "magicmirror.fullname" . }}
+  labels:
+    app: {{ template "magicmirror.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  entryPoints:
+  {{- if .Values.ingress.tls }}
+    - websecure
+  {{- else }}
+    - web
+  {{- end }}
+  routes:
+  {{- if .Values.ingress.hostname }}
+  - match: Host(`{{ .Values.ingress.hostname }}`) && PathPrefix(`{{ .Values.ingress.path }}`)
+  {{- else }}
+  - match: PathPrefix(`{{ .Values.ingress.path }}`)
+  {{- end }}
+    kind: Rule
+    services:
+    - name: {{ template "magicmirror.fullname" . }}
+      port: {{ .Values.service.port }}
+    middlewares:
+    - name: {{ template "magicmirror.fullname" . }}-strip
+  {{- if .Values.ingress.tls }}
+  tls:
+    stores: default
+  {{- end }}
+{{- end }}

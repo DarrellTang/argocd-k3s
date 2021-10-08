@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "magicmirror.fullname" . }}
+  labels:
+    app: {{ template "magicmirror.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+spec:
+  replicas: {{ default 1 .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "magicmirror.name" . }}
+      release: {{ .Release.Name }}
+  {{- if .Values.deploymentStrategy }}
+  strategy:
+{{ toYaml .Values.deploymentStrategy | indent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "magicmirror.name" . }}
+        chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+        release: {{ .Release.Name | quote }}
+        heritage: {{ .Release.Service | quote }}
+      annotations:
+        checksum/modules: {{ include (print $.Template.BasePath "/install-modules.yaml") . | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+    spec:
+      serviceAccountName: {{ template "magicmirror.fullname" . }}
+      securityContext:
+{{ toYaml .Values.securityContext | indent 8 }}
+      volumes:
+      - name: modules
+        {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "magicmirror.fullname" . }}{{- end }}
+        {{- else }}
+        emptyDir: {}
+        {{- end  }}
+      - name: config
+        configMap:
+          name: {{ template "magicmirror.fullname" . }}-config
+      {{- if .Values.modules.install }}
+      - name: install-modules
+        configMap:
+          name: {{ template "magicmirror.fullname" . }}-install-modules
+          defaultMode: 0775
+      initContainers:
+      - name: install-modules
+        image: {{ .Values.image }}
+        command: ["sh",
+          "-c",
+          "/opt/magic_mirror/install_modules.sh"]
+        volumeMounts:
+        - mountPath: /opt/magic_mirror/modules
+          name: modules
+        - mountPath: /opt/magic_mirror/install_modules.sh
+          name: install-modules
+          subPath: install_modules.sh
+      {{- end }}
+      containers:
+      - image: {{ .Values.image }}
+        name: {{ template "magicmirror.fullname" . }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        command:
+          - /opt/magic_mirror/entrypoint.sh
+          - npm
+          - run
+          - server
+        env:
+          {{- with .Values.env }}
+          {{- . | toYaml | trim | nindent 12 }}
+          {{- end }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.service.port }}
+          failureThreshold: 5
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.service.port }}
+          failureThreshold: 5
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        volumeMounts:
+        - mountPath: /opt/magic_mirror/config/config.js
+          name: config
+          subPath: config.js
+        - mountPath: /opt/magic_mirror/css/custom.css
+          name: config
+          subPath: custom.css
+        - mountPath: /opt/magic_mirror/modules
+          name: modules
+        {{- if .Values.modules.install }}
+        - mountPath: /tmp/scripts/
+          name: install-modules
+        {{- end }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.service.port }}
+          protocol: TCP
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}
+    {{- if .Values.hostAliases }}
+      hostAliases:
+{{ toYaml .Values.hostAliases | indent 8 }}
+    {{- end }}
+    {{- if .Values.tolerations }}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}
+    {{- end }}
+    {{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 8 }}
+    {{- end }}

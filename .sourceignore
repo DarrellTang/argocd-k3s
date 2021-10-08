@@ -1,2 +1,7 @@
 monitoring/custom-values.yaml
 networking/*-values.yaml
+home-automation/templates/**
+home-automation/config/**
+home-automation/Chart.yaml
+home-automation/README.md
+home-automation/values.yaml
