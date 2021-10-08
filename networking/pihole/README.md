@@ -1,2 +1,2 @@
-# Flux k3s Homelab
+# Pihole App
 ![High Level](diagram/pihole.png)
