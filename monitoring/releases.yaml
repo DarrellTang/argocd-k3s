@@ -115,7 +115,7 @@ spec:
         clusterIP: ""
         externalIPs: []
         labels: {}
-        loadBalancerIP: ""
+        loadBalancerIP: "10.0.0.234"
         loadBalancerSourceRanges: []
         nodePort: 30903
         port: 9093
@@ -221,6 +221,7 @@ spec:
       service:
         portName: service
         type: LoadBalancer
+        loadBalancerIP: "10.0.0.235"
       serviceMonitor:
         interval: ""
         metricRelabelings: []
@@ -530,7 +531,7 @@ spec:
         clusterIP: ""
         externalIPs: []
         labels: {}
-        loadBalancerIP: ""
+        loadBalancerIP: "10.0.0.233"
         loadBalancerSourceRanges: []
         nodePort: 30090
         port: 9090
