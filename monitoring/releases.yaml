@@ -657,7 +657,7 @@ spec:
         clusterIP: ""
         externalIPs: []
         labels: {}
-        loadBalancerIP: ""
+        loadBalancerIP: "10.0.0.239"
         loadBalancerSourceRanges: []
         nodePort: 30080
         nodePortTls: 30443
