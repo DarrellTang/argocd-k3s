@@ -11,15 +11,15 @@ with Diagram("Flux k3s Lab", show=False, direction="TB"):
         with Cluster("flux-system"):
             flux = Flux("flux")
         with Cluster("networking"):
-            coredns = Coredns("Coredns\n10.0.0.237")
-            pihole = Deployment("Pihole\n10.0.0.235")
+            coredns = Coredns("Coredns\n10.0.0.232")
+            pihole = Deployment("Pihole\n10.0.0.231")
             metalLB = Deployment("metalLB\n10.0.0230")
         with Cluster("monitoring"):
-            grafana = Grafana("Grafana\n10.0.0.234")
+            grafana = Grafana("Grafana\n10.0.0.235")
             prometheus = Prometheus("Prometheus\n10.0.0.233")
-            alertmanager = Deployment("Alertmanager\n10.0.0.232")
+            alertmanager = Deployment("Alertmanager\n10.0.0.234")
         with Cluster("home automation"):
             magicmirror = Deployment("Magic Mirror\n10.0.0.236")
     gitlab = Gitlab("Gitlab\nhttps://gitlab.com/darrelltang/flux-k3s/")
     gitlab >> flux
-    flux >> [metalLB, coredns, pihole, alertmanager, grafana, prometheus, magicmirror]
+    flux >> [metalLB, coredns, pihole, prometheus, grafana, alertmanager, magicmirror]
