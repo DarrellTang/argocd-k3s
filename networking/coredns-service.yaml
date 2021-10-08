@@ -7,7 +7,7 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: coredns
   name: coredns-tcp-service
-  namespace: coredns
+  namespace: networking
 spec:
   ports:
   - port: 53
@@ -33,7 +33,7 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: coredns
   name: coredns-udp-service
-  namespace: coredns
+  namespace: networking
 spec:
   ports:
   - port: 53
