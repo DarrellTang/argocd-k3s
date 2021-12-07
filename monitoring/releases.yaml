@@ -62,9 +62,15 @@ spec:
       apiVersion: v2
       config:
         global:
+          slack_api_url: 'https://hooks.slack.com/services/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'
           resolve_timeout: 5m
         receivers:
         - name: "null"
+        - name: "slack"
+          slack_configs:
+            - channel: '#tang-notifications'
+              send_resolved: true
+              title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] Monitoring Event Notification'
         route:
           group_by:
           - job
