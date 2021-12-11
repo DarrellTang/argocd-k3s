@@ -217,7 +217,6 @@ spec:
         annotations:
           kubernetes.io/ingress.class: traefik
         enabled: true
-        ingressClassName: traefik
         hosts:
         - grafana.tang.local
         labels: {}
