@@ -1,0 +1,4 @@
+creation_rules:
+  - path_regex: .*.yaml
+    encrypted_regex: ^(data|stringData|slack_api_url)$
+    pgp: 54701B50AECAE3FEF87F71A0BD70576CE61A39D8
