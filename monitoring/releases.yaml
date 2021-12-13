@@ -61,7 +61,7 @@ spec:
             apiVersion: v2
             config:
                 global:
-                    slack_api_url: ENC[AES256_GCM,data:fytt1YSUTU1y1NUj8YmOn4AMh2/ZZ1HgqSxXF3NAJ8Q3V4G3gR/p0tu786z91b8l6EHW1Z09IhilWnlHE792Li2RNu5MLpms+hc/FDI6FA==,iv:Rtzor6OiflTaPjDQZ67ln4PPtM/pcSuK/+q5r9v++fU=,tag:dvlNj1IIAMrLC3gpsmgJow==,type:str]
+                    slack_api_url: ENC[AES256_GCM,data:NLVIlVsHDO5OztIkYGUPujvYRxHxnZ8xi7H2RlSQ89qfeptxF6ZZOLVk5pAdp3PT/fzbAX9VhNWLuApPLsLNf2WtOANPp/wDiyAHh6mujw==,iv:W4DXa6ZBOWz1tKOr38FkTIMZ3W5U3E/C/4Fh1tpVSr8=,tag:GOj8TTS+8nQLjXPLJ0FSiQ==,type:str]
                     resolve_timeout: 5m
                 receivers:
                     - name: "null"
@@ -714,8 +714,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-12-13T06:59:04Z"
-    mac: ENC[AES256_GCM,data:03pCf5RrT0Yp+TKnr+Nrs7xeCsdHbgxmy4aFdUUArsFzq8pHhSVXY2JWhQPyfj4Uqje5p7jywRKZvpeeynyubQ2F9o0Es+OvThAg2W+vdJyCFpwN+ONkBJKOzGwb5H+S0Zy+QwfPeJsv8iQvTrCPy90Q8lVVN2anJHU7seE1z7Q=,iv:7W8b2T+at0/vcmHzg7vqYGrcAlBhF7+344LfJGq+7EQ=,tag:GXv50HryJ3p6Uj0WZuJU4g==,type:str]
+    lastmodified: "2021-12-13T07:09:53Z"
+    mac: ENC[AES256_GCM,data:geBrOIKudrksAfMrPC/7Bpp8YL/Azx4VyP+FunL4bj9AjqC7TIRcZmUKisygWS2lUXjM3Q14jk111k91H0ukSkVu/uSSawOujhFnbRo7MGjdlpXSCxoTh4ophDoA1PLcuQSlQvjQNAEhkyL+y1Ufz9xBRgXkF3KoICO6/rBAwUU=,iv:2UW6YkD7SQh++rtp1z+PUZe4ajUybDPi/ou7fkBpTb4=,tag:ThBKazpDWgiSp3nRXRimiQ==,type:str]
     pgp:
         - created_at: "2021-12-13T06:59:00Z"
           enc: |
