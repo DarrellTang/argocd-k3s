@@ -291,7 +291,7 @@ spec:
                 serverName: kubernetes
         kubeControllerManager:
             enabled: true
-            endpoints: []
+            endpoints: [10.0.0.250]
             service:
                 enabled: true
                 port: 10252
@@ -323,7 +323,7 @@ spec:
                 relabelings: []
         kubeEtcd:
             enabled: true
-            endpoints: []
+            endpoints: [10.0.0.250]
             service:
                 enabled: true
                 port: 2379
@@ -356,7 +356,7 @@ spec:
                 relabelings: []
         kubeScheduler:
             enabled: true
-            endpoints: []
+            endpoints: [10.0.0.250]
             service:
                 enabled: true
                 port: 10251
