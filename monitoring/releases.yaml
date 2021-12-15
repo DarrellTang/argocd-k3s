@@ -539,7 +539,9 @@ spec:
                     runAsNonRoot: true
                     runAsUser: 1000
                 serviceMonitorNamespaceSelector: {}
-                serviceMonitorSelector: {}
+                serviceMonitorSelector: 
+                  matchLabels:
+                    app: magicmirror
                 serviceMonitorSelectorNilUsesHelmValues: true
                 shards: 1
                 storageSpec: {}
