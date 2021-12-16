@@ -61,7 +61,7 @@ spec:
             apiVersion: v2
             config:
                 global:
-                    slack_api_url: ENC[AES256_GCM,data:RBJzDqQO75uMfEjPsyZrnRYYr8S9iMhmB0sNIdn/Fy1HZ8uaXo11u7H4+pyRrlAV2bkvWDddoEeP7OnTpEAEZ7rL+TqJT6j5Fi/7T29KEw==,iv:OiJo+ijCQ0N4VTOfIQT/M3OZkmuGOqwf0Vs/kaA9EUs=,tag:t+59o1KF9hOKcDJTb213JA==,type:str]
+                    slack_api_url: ENC[AES256_GCM,data:SsTbYl+vkXz8mSlpUqkI1VS0D0PWIYs4DdTZ+Wi/SrthQnVUSNUTuepVxKH4Mx8/8VT4xGAsP0R/frEqWiXQWdBSo50//sUqh/2PXzv5Fg==,iv:VwKd9K0Hbfn+spdsMqmqQ5R3Zi6nUwJtaZJINHB4GME=,tag:pp5G77HAkUQ76gyAQAVWjg==,type:str]
                     resolve_timeout: 5m
                 receivers:
                     - name: "null"
@@ -219,7 +219,7 @@ spec:
                 pspEnabled: true
         grafana:
             additionalDataSources: []
-            adminPassword: ENC[AES256_GCM,data:WpnajHe5skiQWi2mfu02OAKbvXL69LghVXg1,iv:U25Kh7DoXh3gwdpCM9YliIzBkJFTCKmV/bo7FrDt0a4=,tag:j7KDbWqb5aBeaUoIM9gDZA==,type:str]
+            adminPassword: ENC[AES256_GCM,data:8hx0XMYKp3CgxMsf5Bxumv7ZfgVmsGmnmJqN,iv:dcoNBJzH8rv67xJZtKLDZ3wwqb3VyTpjZ2McGA1Lf+g=,tag:sZDzMHzq/zdoX6ui5T+XWg==,type:str]
             defaultDashboardsEnabled: true
             enabled: true
             extraConfigmapMounts: []
@@ -471,7 +471,27 @@ spec:
                 additionalPrometheusSecretsAnnotations: {}
                 additionalRemoteRead: []
                 additionalRemoteWrite: []
-                additionalScrapeConfigs: []
+                additionalScrapeConfigs:
+                    - job_name: blackbox
+                      metrics_path: /probe
+                      params:
+                        module:
+                            - http_2xx
+                      static_configs:
+                        # Add URLs as target parameter
+                        - targets:
+                            - http://magicmirror.tang.local
+                      relabel_configs:
+                        - source_labels:
+                            - __address__
+                          target_label: __param_target
+                        - source_labels:
+                            - __param_target
+                          # Important!
+                          target_label: target
+                          # Ensure blackbox-exporter is reachable from Prometheus
+                        - target_label: __address__
+                          replacement: prometheus-blackbox-exporter.monitoring:9115
                 additionalScrapeConfigsSecret: {}
                 affinity: {}
                 alertingEndpoints: []
@@ -539,9 +559,9 @@ spec:
                     runAsNonRoot: true
                     runAsUser: 1000
                 serviceMonitorNamespaceSelector: {}
-                serviceMonitorSelector: 
-                  matchLabels:
-                    app: magicmirror
+                serviceMonitorSelector:
+                    matchLabels:
+                        app: magicmirror
                 serviceMonitorSelectorNilUsesHelmValues: true
                 shards: 1
                 storageSpec: {}
@@ -718,27 +738,74 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2021-12-14T22:44:05Z"
-    mac: ENC[AES256_GCM,data:iSJ1Z8yYunvj52qcyQ6lUnSQ6et50qRw+8avbIahs5tnFpzChHwXMIS24vNZ4E71r9A9qaLDR/xEKnmqicUjeeG3NrWkjUB10/leyiOEJnGzv3Hwbe6jewVu9vUqUSyIpVLJFh+JrelS3yjAFCWbm7x5LrSFCgODtn9DmFErp+U=,iv:ktYa7bT0QGzQ2UT1P17K3XUXAzDltEe7Noppiqok8HU=,tag:ZTaOYn4A0NUGw5PbukkfQA==,type:str]
+    lastmodified: "2021-12-16T04:31:39Z"
+    mac: ENC[AES256_GCM,data:BYLfaDiFWd/9S1MFuQ2GvpB8PkzAhQKw01XfQBkTiLunu44nSYKGsXvrTeGqZr415pIYU2OaVuyC+cpk36dzuVq1WsYgqZIMQkf1EkBZR1bao6kH0yTVsr/h+J7SyqqznwU7ybDEMGcQx5Vlq1E367SoWX3aqDrL+O6DCWgMzt4=,iv:5VeNeuAsJWdSSsIIoZR0cSu9yZxT0onfSkjN4Y3kyBE=,tag:KsUMdspbd1cwJjXrm1WnGw==,type:str]
     pgp:
-        - created_at: "2021-12-14T22:44:02Z"
+        - created_at: "2021-12-16T04:28:41Z"
           enc: |
             -----BEGIN PGP MESSAGE-----
 
-            hQIMA90EKjQRf4iCAQ/+N84gm+lU3uyN4fBkd5QeNcY/YOG4IoZElM02VoTjqmgr
-            BjeRSCoGwbF8l4FfivJT1/iVokNk83nzAXn+WgLQHti9AFTqNEwsnLbOo0jnFFx+
-            dZD8EGNo+fuPb8BHtVOxf8WefK45r9qSKt02QMAx+1dqEpJ/jWPfqx8ZdfglZRqL
-            isc9I/7m2M85rJMWdO5EAkmKfOaRKmW6s7qdeRIv2ITxwBYOnrc49Y2ZJgRbDru3
-            aLgNXvjOZ2efFyQQUuAyGWptqvqbmiKkZMFapNI0wxIRjhE6xwNYt48yDAxKyErZ
-            ThWaxJSpgqb6qjGnreKFdRDECdst5z1gKI01R9VoOAGZMcm6pEAbRCtcbeK2FzuT
-            PU4iVFWp7f38XAfxpHoVX24zNZJSEgUFQaNZAZPZ8Ez2hpcfFhicdICUieDWAfVS
-            7iiEE03o9x4Ck9lDBs4UEEJwXhQ4AnA33l7olj7Zorb7RmE8dmO0KnMAVDZ/etd5
-            EA0B4Rbe6dNDIIvBICml6M7c2NNGtoh0cCgPCdF5gfswY9nn7cTlHbJy4sdYtXdV
-            /kr3ajKor2XA7sd0qANErKqaqRhWRq+r0SVbx5VXn49Tg2GN9bIe+R6IZ1SqIufJ
-            NIBb8iUU7hARyrDSDmvbg2yGl+3fs4NBljFz4UWiFWz4FY50EfSbvf5hNLXCX5LS
-            XAHy5+pcfNy9peagZo+YKyJsuNWrQEDgXviwNpyCIk6M6mBxsr1HoobdXORsjZRN
-            uIFimxazOIwPygOi/E9tydbNlhZm5lz4LjN20qJLyTy9K143ENHnmrW3U+S5
-            =sUfJ
+            hQIMA90EKjQRf4iCAQ/8DbEfBDEcoeDZ7TXaryXpxV+XaV/L3bPP7Pb+B+wovA4l
+            ymrv67rd8CLnv2xVWrzRuawVcy1/TWGypqicuYe2JfIsRsBoFC8Q783rH9MC6l8i
+            hkF8/vgl6liSJmIY6NMxgc4a7ybz/DO176KddcpgDMiVnxVRShyWl6yrrV0bFB8L
+            Gix4ycaR8tMPFsYdlsYecI7K/jgvbPwBsyPIHHTyNdpJ7nEiPEVTGajSVvt4UPKV
+            NEAIrmJA6+dsKTFmu0t1k9uuB9BAAn27cEcwiew8rz8nVSGSsNkIQhRxcDMnaTIN
+            bod/3co4r+zN2P/xioi0tvozpuk4+O7rIIl2PvvEPGrqeGboS6e0qPIOYMnho6F2
+            QERlGlKuKxT8QHMNZu8XjAqZ3WZTGlk7RBsQWNaCXSF5m6rttV4d+VNHkLtJyrdN
+            ei74SdOL0VDXbYl82aCT53mOd0gBdyl8+tlXDZhZ3u0tkYsmL+NOquaAqoWcTWbi
+            cBgdAxbPcUu8LCTliNQ010BB0ej2C4BLpZjkWR3vJ4TvGsh+tyjauaTyT2lxj5+E
+            wyGAETA0lqZgsfzrD7kDKhgO8R6elzqSKemVVpwkjZaet9DXvv7SIHDpVbWQoZuY
+            FCaRkQbgRoN4IKs5ruzU0YdFVsm1hBLN5imlmcejSxp1bjDEGTDejJpGZW69WLvS
+            XgEbo87ghoxg8T4AQc4QN6YL1WPKBopBqBrkY8ji76F2mT82oGtoj5nqHXH1GB5O
+            hEsDWAcm0JP3B52mEgkNNbtfQ8mWb66Vj+Ikox2nnnH67HEvuygywK7tx2gMwwo=
+            =t67y
+            -----END PGP MESSAGE-----
+          fp: 54701B50AECAE3FEF87F71A0BD70576CE61A39D8
+    encrypted_regex: ^(data|stringData|slack_api_url|adminPassword)$
+    version: 3.7.1
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+    name: blackbox-exporter
+    namespace: monitoring
+spec:
+    chart:
+        spec:
+            chart: prometheus-blackbox-exporter
+            sourceRef:
+                kind: HelmRepository
+                name: prometheus-community
+            version: '*'
+    install: {}
+    interval: 5m0s
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2021-12-16T04:31:39Z"
+    mac: ENC[AES256_GCM,data:BYLfaDiFWd/9S1MFuQ2GvpB8PkzAhQKw01XfQBkTiLunu44nSYKGsXvrTeGqZr415pIYU2OaVuyC+cpk36dzuVq1WsYgqZIMQkf1EkBZR1bao6kH0yTVsr/h+J7SyqqznwU7ybDEMGcQx5Vlq1E367SoWX3aqDrL+O6DCWgMzt4=,iv:5VeNeuAsJWdSSsIIoZR0cSu9yZxT0onfSkjN4Y3kyBE=,tag:KsUMdspbd1cwJjXrm1WnGw==,type:str]
+    pgp:
+        - created_at: "2021-12-16T04:28:41Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA90EKjQRf4iCAQ/8DbEfBDEcoeDZ7TXaryXpxV+XaV/L3bPP7Pb+B+wovA4l
+            ymrv67rd8CLnv2xVWrzRuawVcy1/TWGypqicuYe2JfIsRsBoFC8Q783rH9MC6l8i
+            hkF8/vgl6liSJmIY6NMxgc4a7ybz/DO176KddcpgDMiVnxVRShyWl6yrrV0bFB8L
+            Gix4ycaR8tMPFsYdlsYecI7K/jgvbPwBsyPIHHTyNdpJ7nEiPEVTGajSVvt4UPKV
+            NEAIrmJA6+dsKTFmu0t1k9uuB9BAAn27cEcwiew8rz8nVSGSsNkIQhRxcDMnaTIN
+            bod/3co4r+zN2P/xioi0tvozpuk4+O7rIIl2PvvEPGrqeGboS6e0qPIOYMnho6F2
+            QERlGlKuKxT8QHMNZu8XjAqZ3WZTGlk7RBsQWNaCXSF5m6rttV4d+VNHkLtJyrdN
+            ei74SdOL0VDXbYl82aCT53mOd0gBdyl8+tlXDZhZ3u0tkYsmL+NOquaAqoWcTWbi
+            cBgdAxbPcUu8LCTliNQ010BB0ej2C4BLpZjkWR3vJ4TvGsh+tyjauaTyT2lxj5+E
+            wyGAETA0lqZgsfzrD7kDKhgO8R6elzqSKemVVpwkjZaet9DXvv7SIHDpVbWQoZuY
+            FCaRkQbgRoN4IKs5ruzU0YdFVsm1hBLN5imlmcejSxp1bjDEGTDejJpGZW69WLvS
+            XgEbo87ghoxg8T4AQc4QN6YL1WPKBopBqBrkY8ji76F2mT82oGtoj5nqHXH1GB5O
+            hEsDWAcm0JP3B52mEgkNNbtfQ8mWb66Vj+Ikox2nnnH67HEvuygywK7tx2gMwwo=
+            =t67y
             -----END PGP MESSAGE-----
           fp: 54701B50AECAE3FEF87F71A0BD70576CE61A39D8
     encrypted_regex: ^(data|stringData|slack_api_url|adminPassword)$
