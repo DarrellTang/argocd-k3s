@@ -481,6 +481,10 @@ spec:
                         # Add URLs as target parameter
                         - targets:
                             - http://magicmirror.tang.local
+                            - http://prometheus.tang.local
+                            - http://alertmanger.tang.local
+                            - http://grafana.tang.local
+                            - http://pihole.tang.local
                       relabel_configs:
                         - source_labels:
                             - __address__
