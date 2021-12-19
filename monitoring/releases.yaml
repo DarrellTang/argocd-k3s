@@ -482,7 +482,7 @@ spec:
                         - targets:
                             - http://magicmirror.tang.local
                             - http://prometheus.tang.local
-                            - http://alertmanger.tang.local
+                            - http://alertmanager.tang.local
                             - http://grafana.tang.local
                             - http://pihole.tang.local
                       relabel_configs:
