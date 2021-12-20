@@ -566,7 +566,7 @@ spec:
                 serviceMonitorSelector:
                     matchLabels:
                         app: magicmirror
-                        monitor_http: true
+                        monitor_http: "true"
                 serviceMonitorSelectorNilUsesHelmValues: true
                 shards: 1
                 storageSpec: {}
