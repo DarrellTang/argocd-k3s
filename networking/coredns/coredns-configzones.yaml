@@ -19,3 +19,4 @@ data:
       prometheus.tang.local.    IN  A  10.0.0.230 
       alertmanager.tang.local.  IN  A  10.0.0.230 
       magicmirror.tang.local.   IN  A  10.0.0.230 
+      blackbox.tang.local.      IN  A  10.0.0.230 
