@@ -276,6 +276,8 @@ spec:
                 create: true
         kubeApiServer:
             enabled: true
+            endpoints:
+                - 10.0.0.250
             serviceMonitor:
                 interval: ""
                 jobLabel: component
@@ -290,7 +292,7 @@ spec:
                 insecureSkipVerify: false
                 serverName: kubernetes
         kubeControllerManager:
-            enabled: false
+            enabled: true
             endpoints:
                 - 10.0.0.250
             service:
@@ -307,7 +309,7 @@ spec:
                 relabelings: []
                 serverName: null
         kubeDns:
-            enabled: false
+            enabled: true
             service:
                 dnsmasq:
                     port: 10054
@@ -343,7 +345,8 @@ spec:
                 serverName: ""
         kubeProxy:
             enabled: true
-            endpoints: []
+            endpoints:
+              - 10.0.0.250
             service:
                 enabled: true
                 port: 10249
@@ -356,7 +359,7 @@ spec:
                 proxyUrl: ""
                 relabelings: []
         kubeScheduler:
-            enabled: false
+            enabled: true
             endpoints:
                 - 10.0.0.250
             service:
