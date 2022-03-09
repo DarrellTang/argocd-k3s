@@ -22,5 +22,5 @@ data:
         health
         # Return HTTP 200 OK on :8081 when CoreDNS and plugins are ready
         ready
-        forward . /etc/resolv.conf
+        forward . 10.0.0.231
     }    
