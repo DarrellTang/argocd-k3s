@@ -19,7 +19,7 @@ spec:
       - name: hostname
         value: pihole
       - name: image.tag
-        value: 2022.05
+        value: "2022.05"
       - name: ingress.enabled
         value: "true"
       - name: ingress.hosts[0]
