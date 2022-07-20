@@ -5,10 +5,13 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: networking
+    namespace: metallb
     server: https://kubernetes.default.svc
   project: default
   source:
     chart: metallb
     repoURL: https://metallb.github.io/metallb
     targetRevision: 0.13.3
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

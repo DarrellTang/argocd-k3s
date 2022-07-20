@@ -2,13 +2,18 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: coredns
+  namespace: argocd
 spec:
   destination:
+    namespace: argocd
     server: https://kubernetes.default.svc
   project: default
   source:
     directory:
       recurse: true
-    path: networking/coredns/
+    path: coredns/
     repoURL: git@github.com:DarrellTang/argocd-k3s.git
     targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
