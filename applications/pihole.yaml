@@ -24,12 +24,16 @@ spec:
         value: "false"
       - name: serviceDns.loadBalancerIP
         value: 10.0.0.231
+      - name: serviceDns.annotations
+        value: metallb.universe.tf/allow-shared-ip=pihole-svc
       - name: serviceWeb.loadBalancerIP
         value: 10.0.0.231
+      - name: serviceWeb.annotations
+        value: metallb.universe.tf/allow-shared-ip=pihole-svc
       - name: serviceWeb.type
         value: LoadBalancer
     repoURL: https://mojo2600.github.io/pihole-kubernetes/
-    targetRevision: 2.5.8
+    targetRevision: 2.9.0
   syncPolicy:
     automated: {}
     syncOptions:
