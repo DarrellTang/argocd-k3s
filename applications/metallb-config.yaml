@@ -11,7 +11,7 @@ spec:
   source:
     path: metallb/
     repoURL: git@github.com:DarrellTang/argocd-k3s.git
-    targetRevision: metallb-update
+    targetRevision: argocd-migration
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

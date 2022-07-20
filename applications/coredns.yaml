@@ -13,7 +13,7 @@ spec:
       recurse: true
     path: coredns/
     repoURL: git@github.com:DarrellTang/argocd-k3s.git
-    targetRevision: HEAD
+    targetRevision: argocd-migration
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
