@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb-config
+  namespace: argocd
+spec:
+  destination:
+    namespace: networking
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: networking/metallb/
+    repoURL: git@gitlab.com:darrelltang/flux-k3s.git
+    targetRevision: metallb-update

@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pihole
+  namespace: argocd
+spec:
+  destination:
+    namespace: networking
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: pihole
+    helm:
+      parameters:
+      - name: admin.existingSecret
+        value: pihole-admin
+      - name: serviceDns.type
+        value: LoadBalancer
+      - name: hostname
+        value: pihole
+      - name: image.tag
+        value: v5.8.1
+      - name: serviceDhcp.enabled
+        value: "false"
+      - name: serviceDns.loadBalancerIP
+        value: 10.0.0.231
+      - name: serviceWeb.loadBalancerIP
+        value: 10.0.0.231
+      - name: serviceWeb.type
+        value: LoadBalancer
+    repoURL: https://mojo2600.github.io/pihole-kubernetes/
+    targetRevision: 2.5.8
