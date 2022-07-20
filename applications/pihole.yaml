@@ -20,6 +20,8 @@ spec:
         value: pihole
       - name: ingress.enabled
         value: "true"
+      - name: ingress.hosts
+        value: ["pihole.tang.local"]
       - name: serviceDhcp.enabled
         value: "false"
       - name: serviceDns.loadBalancerIP
