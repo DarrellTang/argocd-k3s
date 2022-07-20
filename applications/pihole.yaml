@@ -36,6 +36,8 @@ spec:
         value: LoadBalancer
       - name: "serviceWeb.annotations.metallb\\.universe\\.tf/allow-shared-ip"
         value: pihole-svc
+      - name: dnsmasq.customDnsEntries[0]
+        value: "address=/tang.local/10.0.0.230"
     repoURL: https://mojo2600.github.io/pihole-kubernetes/
     targetRevision: 2.9.0
   syncPolicy:
