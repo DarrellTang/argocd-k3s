@@ -18,8 +18,8 @@ spec:
         value: LoadBalancer
       - name: hostname
         value: pihole
-      - name: image.tag
-        value: v5.8.1
+      - name: ingress.enabled
+        value: true
       - name: serviceDhcp.enabled
         value: "false"
       - name: serviceDns.loadBalancerIP
