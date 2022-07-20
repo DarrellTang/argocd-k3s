@@ -30,7 +30,7 @@ spec:
         value: 10.0.0.231
       - name: serviceWeb.type
         value: LoadBalancer
-      - name: "serviceDns.annotations.metallb\\.universe\\.tf/allow-shared-ip"
+      - name: "serviceWeb.annotations.metallb\\.universe\\.tf/allow-shared-ip"
         value: pihole-svc
     repoURL: https://mojo2600.github.io/pihole-kubernetes/
     targetRevision: 2.9.0
