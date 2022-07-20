@@ -20,7 +20,7 @@ spec:
         value: pihole
       - name: ingress.enabled
         value: "true"
-      - name: ingress.hosts
+      - name: ingress.hosts[0]
         value: "pihole.tang.local"
       - name: serviceDhcp.enabled
         value: "false"
