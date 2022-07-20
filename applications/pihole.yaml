@@ -31,5 +31,6 @@ spec:
     repoURL: https://mojo2600.github.io/pihole-kubernetes/
     targetRevision: 2.5.8
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true
