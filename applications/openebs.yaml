@@ -15,7 +15,7 @@ spec:
       - name: jiva.enabled
         value: "true"
       - name: jiva.replicas
-        value: 1
+        value: "1"
     repoURL: https://openebs.github.io/charts
     targetRevision: 3.3.0
   syncPolicy:
