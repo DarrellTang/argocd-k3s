@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pihole
+  namespace: argocd
+spec:
+  destination:
+    namespace: pihole
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: pihole
+    helm:
+      parameters:
+      - name: admin.existingSecret
+        value: pihole-admin
+      - name: serviceDns.type
+        value: LoadBalancer
+      - name: hostname
+        value: pihole
+      - name: image.tag
+        value: "2022.05"
+      - name: ingress.enabled
+        value: "true"
+      - name: ingress.hosts[0]
+        value: "pihole.tang.local"
+      - name: serviceDhcp.enabled
+        value: "false"
+      - name: serviceDns.loadBalancerIP
+        value: 10.0.0.231
+      - name: "serviceDns.annotations.metallb\\.universe\\.tf/allow-shared-ip"
+        value: pihole-svc
+      - name: serviceWeb.loadBalancerIP
+        value: 10.0.0.231
+      - name: serviceWeb.type
+        value: LoadBalancer
+      - name: "serviceWeb.annotations.metallb\\.universe\\.tf/allow-shared-ip"
+        value: pihole-svc
+      - name: dnsmasq.customDnsEntries[0]
+        value: "address=/tang.local/10.0.0.230"
+    repoURL: https://mojo2600.github.io/pihole-kubernetes/
+    targetRevision: 2.9.0
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

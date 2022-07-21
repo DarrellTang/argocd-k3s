@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb-config
+  namespace: argocd
+spec:
+  destination:
+    namespace: metallb
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: metallb-config/
+    repoURL: git@github.com:DarrellTang/argocd-k3s.git
+    targetRevision: argocd-migration
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
