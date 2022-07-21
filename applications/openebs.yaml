@@ -13,7 +13,7 @@ spec:
     helm:
       parameters:
       - name: jiva.enabled
-        value: true
+        value: "true"
     repoURL: https://openebs.github.io/charts
     targetRevision: 3.3.0
   syncPolicy:
