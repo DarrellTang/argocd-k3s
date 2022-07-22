@@ -14,8 +14,6 @@ spec:
     solvers:
     - dns01:
         cloudflare:
-          email: darrelltang@gmail.com
-          config:
-            apiKeySecretRef:
-              name: cloudflare-api-key-secret
-              key: api-key
+          apiKeySecretRef:
+            name: cloudflare-api-key-secret
+            key: api-key
