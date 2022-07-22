@@ -22,8 +22,8 @@ spec:
         value: "2022.05"
       - name: ingress.enabled
         value: "true"
-      - name: "ingress.annotations.nginx\\.ingress\\.kubernetes\\.io/app-root"
-        value: "/admin"
+          #      - name: "ingress.annotations.nginx\\.ingress\\.kubernetes\\.io/app-root"
+          #        value: "/admin"
       - name: "ingress.annotations.cert-manager\\.io/cluster-issuer"
         value: "letsencrypt-staging"
       - name: ingress.tls[0].secretName
