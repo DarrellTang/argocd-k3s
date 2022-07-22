@@ -24,8 +24,8 @@ spec:
         value: "true"
           #      - name: "ingress.annotations.nginx\\.ingress\\.kubernetes\\.io/app-root"
           #        value: "/admin"
-      - name: "ingress.annotations.cert-manager\\.io/cluster-issuer"
-        value: "letsencrypt-staging"
+      # - name: "ingress.annotations.cert-manager\\.io/cluster-issuer"
+        # value: "letsencrypt-staging"
       - name: ingress.tls[0].secretName
         value: "tls-pihole"
       - name: ingress.tls[0].hosts[0]
