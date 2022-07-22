@@ -1,0 +1,11 @@
+apiVersion: openebs.io/v1
+kind: JivaVolumePolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: openebs
+  name: openebs-jiva-policy-1-rep
+  namespace: openebs
+spec:
+  replicaSC: openebs-hostpath
+  target:
+    replicationFactor: 1
