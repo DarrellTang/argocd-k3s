@@ -11,8 +11,15 @@ spec:
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
       name: letsencrypt-staging
-    # Enable the HTTP-01 challenge provider
     solvers:
-    - http01:
-        ingress:
-          class:  nginx
+    - dns01:
+        webhook:
+          groupName: acme.namecheap.com
+          solverName: namecheap
+          config:
+            apiKeySecretRef:
+              name: namecheap-credentials
+              key: apiKey
+            apiUserSecretRef:
+              name: namecheap-credentials
+              key: apiUser
