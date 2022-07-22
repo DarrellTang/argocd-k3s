@@ -11,7 +11,7 @@ spec:
   source:
     path: metallb-config/
     repoURL: git@github.com:DarrellTang/argocd-k3s.git
-    targetRevision: feature/openebs
+    targetRevision: HEAD
   syncPolicy:
     automated: {}
     syncOptions:
