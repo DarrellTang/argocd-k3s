@@ -26,6 +26,8 @@ spec:
         value: "nginx"
       - name: ingress.hosts[0]
         value: "pihole.tang.local"
+      - name: ingress.hosts[1]
+        value: "pihole.darrellandranae.com"
       - name: serviceDhcp.enabled
         value: "false"
       - name: serviceDns.loadBalancerIP
