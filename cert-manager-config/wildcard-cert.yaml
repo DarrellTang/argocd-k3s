@@ -1,13 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildcard-cert-stage
-  namespace: default
+  name: wildcard-cert-staging
 spec:
-  secretName: wildcard-cert-stage
+  secretName: wildcard-cert-staging
   commonName: "*.darrellandranae.com"
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-stage
+    name: letsencrypt-staging
   dnsNames:
   - "*.darrellandranae.com"
