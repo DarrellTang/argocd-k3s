@@ -12,9 +12,6 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
-    - dns01:
-        cloudflare:
-          email: darrelltang@gmail.com
-          apiTokenSecretRef:
-            name: cloudflare-api-token-secret
-            key: api-token
+    - http01:
+        ingress:
+          class: nginx
