@@ -4,8 +4,8 @@ metadata:
   name: csv-pvc
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: openebs-jiva-csi-default
+    - ReadWriteOnce
+  storageClassName: openebs-device
   resources:
     requests:
       storage: 100Mi
