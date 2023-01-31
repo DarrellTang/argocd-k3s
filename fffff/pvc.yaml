@@ -5,7 +5,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: openebs-jiva-csi-default
+  storageClassName: openebs-device
   resources:
     requests:
       storage: 100Mi
