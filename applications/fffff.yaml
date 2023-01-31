@@ -11,7 +11,7 @@ spec:
   source:
     path: fffff/
     repoURL: git@github.com:DarrellTang/argocd-k3s.git
-    targetRevision: HEAD
+    targetRevision: fffff
   syncPolicy:
     automated: {}
     syncOptions:
