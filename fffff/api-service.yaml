@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fffff-api
+spec:
+  selector:
+    app: fffff-api
+  ports:
+  - name: fffff-api
+    port: 80
+    targetPort: 8080
+  type: ClusterIP

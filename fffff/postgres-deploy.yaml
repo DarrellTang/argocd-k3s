@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:12
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-password
+              key: password
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: sql-script
+          mountPath: /docker-entrypoint-initdb.d
+        - name: csv-volume
+          mountPath: /csv
+      volumes:
+      - name: sql-script
+        configMap:
+          name: sql-script
+      - name: csv-volume
+        persistentVolumeClaim:
+          claimName: csv-pvc

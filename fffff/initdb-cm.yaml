@@ -1,0 +1,155 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sql-script
+data:
+  script.sql: |
+    CREATE TABLE items (
+      ID INT,
+      Singular TEXT,
+      Adjective INT,
+      Plural TEXT,
+      PossessivePronoun INT,
+      StartsWithVowel INT,
+      temp1 INT,
+      Pronoun INT,
+      Article INT,
+      Description TEXT,
+      Name TEXT,
+      Icon INT,
+      LevelItem INT,
+      Rarity INT,
+      FilterGroup INT,
+      AdditionalData INT,
+      ItemUICategory INT,
+      ItemSearchCategory INT,
+      EquipSlotCategory INT,
+      ItemSortCategory INT,
+      temp2 INT,
+      StackSize INT,
+      IsUnique boolean,
+      IsUntradable boolean,
+      IsIndisposable boolean,
+      Lot TEXT,
+      PriceMid INT,
+      PriceLow INT,
+      CanBeHq boolean,
+      IsDyeable boolean,
+      IsCrestWorthy boolean,
+      ItemAction INT,
+      CastTime_s INT,
+      Cooldown_s INT,
+      ClassJobRepair INT,
+      ItemRepair INT,
+      ItemGlamour INT,
+      Desynth INT,
+      IsCollectable boolean,
+      AlwaysCollectable boolean,
+      AetherialReduce INT,
+      LevelEquip INT,
+      temp3 INT,
+      EquipRestriction INT,
+      ClassJobCategory INT,
+      GrandCompany INT,
+      ItemSeries INT,
+      BaseParamModifier INT,
+      ModelMain TEXT,
+      ModelSub TEXT,
+      ClassJobUse INT,
+      temp4 INT,
+      DamagePhys INT,
+      DamageMag INT,
+      Delay_ms INT,
+      temp5 INT,
+      BlockRate INT,
+      Block INT,
+      DefensePhys INT,
+      DefenseMag INT,
+      BaseParam0 INT,
+      BaseParamValue0 INT,
+      BaseParam1 INT,
+      BaseParamValue1 INT,
+      BaseParam2 INT,
+      BaseParamValue2 INT,
+      BaseParam3 INT,
+      BaseParamValue3 INT,
+      BaseParam4 INT,
+      BaseParamValue4 INT,
+      BaseParam5 INT,
+      BaseParamValue5 INT,
+      ItemSpecialBonus INT,
+      ItemSpecialBonusParam INT,
+      BaseParamSpecial0 INT,
+      BaseParamValueSpecial0 INT,
+      BaseParamSpecial1 INT,
+      BaseParamValueSpecial1 INT,
+      BaseParamSpecial2 INT,
+      BaseParamValueSpecial2 INT,
+      BaseParamSpecial3 INT,
+      BaseParamValueSpecial3 INT,
+      BaseParamSpecial4 INT,
+      BaseParamValueSpecial4 INT,
+      BaseParamSpecial5 INT,
+      BaseParamValueSpecial5 INT,
+      MaterializeType INT,
+      MateriaSlotCount INT,
+      IsAdvancedMeldingPermitted boolean,
+      IsPvP boolean,
+      SubStatCategory INT,
+      IsGlamourous boolean
+    );
+
+    \copy items(ID,Singular,Adjective,Plural,PossessivePronoun,StartsWithVowel,temp1,Pronoun,Article,Description,Name,Icon,LevelItem,Rarity,FilterGroup,AdditionalData,ItemUICategory,ItemSearchCategory,EquipSlotCategory,ItemSortCategory,temp2,StackSize,IsUnique,IsUntradable,IsIndisposable,Lot,PriceMid,PriceLow,CanBeHq,IsDyeable,IsCrestWorthy,ItemAction,CastTime_s,Cooldown_s,ClassJobRepair,ItemRepair,ItemGlamour,Desynth,IsCollectable,AlwaysCollectable,AetherialReduce,LevelEquip,temp3,EquipRestriction,ClassJobCategory,GrandCompany,ItemSeries,BaseParamModifier,ModelMain,ModelSub,ClassJobUse,temp4,DamagePhys,DamageMag,Delay_ms,temp5,BlockRate,Block,DefensePhys,DefenseMag,BaseParam0,BaseParamValue0,BaseParam1,BaseParamValue1,BaseParam2,BaseParamValue2,BaseParam3,BaseParamValue3,BaseParam4,BaseParamValue4,BaseParam5,BaseParamValue5,ItemSpecialBonus,ItemSpecialBonusParam,BaseParamSpecial0,BaseParamValueSpecial0,BaseParamSpecial1,BaseParamValueSpecial1,BaseParamSpecial2,BaseParamValueSpecial2,BaseParamSpecial3,BaseParamValueSpecial3,BaseParamSpecial4,BaseParamValueSpecial4,BaseParamSpecial5,BaseParamValueSpecial5,MaterializeType,MateriaSlotCount,IsAdvancedMeldingPermitted,IsPvP,SubStatCategory,IsGlamourous) FROM '/csv/item.csv' DELIMITER ',' CSV HEADER;
+
+    CREATE TABLE listings (id INT, nqworldname TEXT, hqworldname TEXT, nqsalevelocity NUMERIC, hqsalevelocity NUMERIC, nqprice INT, hqprice INT, nqhomeprice INT, hqhomeprice INT, nqmargin NUMERIC, hqmargin NUMERIC, stacksize INT, totalmargin INT, updated TIMESTAMPTZ, nqdc TEXT, hqdc TEXT);
+
+    CREATE VIEW marketable AS
+      SELECT id
+      FROM Items
+      WHERE
+          itemsearchcategory >= 8
+      AND itemsearchcategory <=90;
+
+    CREATE VIEW HqShoppingList AS
+      SELECT
+        l.id
+        , i.Name
+        , l.hqworldname
+        , l.hqdc
+        , l.hqsalevelocity
+        , l.hqprice
+        , l.hqhomeprice
+        , l.hqmargin
+        , l.stacksize
+        , l.totalmargin
+        , l.updated AT TIME ZONE 'America/Los_Angeles'
+      FROM 
+        listings l
+      JOIN items i
+      ON l.id = i.id AND i.ItemSearchCategory >= 8
+      WHERE
+        l.totalmargin > 10000
+      AND l.hqsalevelocity > 24
+      AND l.updated >= NOW() - INTERVAL '15 minutes';
+
+    CREATE VIEW NqShoppingList AS
+      SELECT
+        l.id
+        , i.Name
+        , l.nqworldname
+        , l.nqdc
+        , l.nqsalevelocity
+        , l.nqprice
+        , l.nqhomeprice
+        , l.nqmargin
+        , l.stacksize
+        , l.totalmargin
+        , l.updated AT TIME ZONE 'America/Los_Angeles'
+      FROM 
+        listings l
+      JOIN items i
+      ON l.id = i.id AND i.ItemSearchCategory >= 8
+      WHERE
+        l.totalmargin > 10000
+      AND l.nqsalevelocity > 24
+      AND l.updated >= NOW() - INTERVAL '15 minutes';
