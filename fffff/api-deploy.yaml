@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fffff-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fffff-api
+  template:
+    metadata:
+      labels:
+        app: fffff-api
+    spec:
+      containers:
+      - name: fffff-api
+        image: ghcr.io/darrelltang/fffff-api:v0.0.11
+        env:
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-password
+              key: password
+        readinessProbe:
+          exec:
+            command:
+            - nc
+            - -z
+            - postgres
+            - "5432"
+          initialDelaySeconds: 5
+          timeoutSeconds: 5

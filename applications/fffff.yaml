@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fffff
+  namespace: argocd
+spec:
+  destination:
+    namespace: fffff
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: fffff/
+    repoURL: git@github.com:DarrellTang/argocd-k3s.git
+    targetRevision: fffff
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

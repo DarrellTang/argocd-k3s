@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app: fffff
+    app.kubernetes.io/instance: argocd
+  name: fffff-api
+  namespace: fffff
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: fffff-api.tang.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: fffff-api
+            port:
+              name: http
+        path: /
+        pathType: ImplementationSpecific
