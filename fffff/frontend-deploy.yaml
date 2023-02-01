@@ -1,0 +1,32 @@
+frontendVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fffff-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fffff-frontend
+  template:
+    metadata:
+      labels:
+        app: fffff-frontend
+    spec:
+      containers:
+      - name: fffff-frontend
+        image: ghcr.io/darrelltang/fffff-frontend:v0.0.1
+        env:
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-password
+              key: password
+        readinessProbe:
+          exec:
+            command:
+            - nc
+            - -z
+            - fffff-api
+            - "80"
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
