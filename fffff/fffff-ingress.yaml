@@ -4,17 +4,17 @@ metadata:
   labels:
     app: fffff
     app.kubernetes.io/instance: argocd
-  name: fffff-api
+  name: fffff
   namespace: fffff
 spec:
   ingressClassName: nginx
   rules:
-  - host: fffff-api.tang.local
+  - host: fffff.tang.local
     http:
       paths:
       - backend:
           service:
-            name: fffff-api
+            name: fffff
             port:
               name: http
         path: /
