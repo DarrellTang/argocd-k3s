@@ -18,4 +18,3 @@ spec:
             port:
               name: http
         path: /
-        pathType: ImplementationSpecific
