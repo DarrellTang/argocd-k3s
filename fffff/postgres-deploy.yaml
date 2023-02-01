@@ -17,9 +17,7 @@ spec:
         image: alpine:latest
         command: ["sh", "-c"]
         args:
-          - apk add curl sed
-          - curl -L -o /data/item.csv https://github.com/xivapi/ffxiv-datamining/raw/master/csv/Item.csv
-          - sed -i 1,3d /data/item.csv
+          - apk add --no-cache curl sed && curl -L -o /data/item.csv https://github.com/xivapi/ffxiv-datamining/raw/master/csv/Item.csv && sed -i 1,3d /data/item.csv
         volumeMounts:
         - name: csv-volume
           mountPath: /data
