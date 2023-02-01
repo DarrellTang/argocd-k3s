@@ -4,7 +4,7 @@ metadata:
   name: fffff
 spec:
   selector:
-    app: fffff
+    app: fffff-frontend
   ports:
   - name: http
     port: 80
