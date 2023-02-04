@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: fffff-frontend
-        image: ghcr.io/darrelltang/fffff-frontend:v0.0.9
+        image: ghcr.io/darrelltang/fffff-frontend:v0.0.10
         env:
         - name: PGPASSWORD
           valueFrom:
