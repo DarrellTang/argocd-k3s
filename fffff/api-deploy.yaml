@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: fffff-api
-        image: ghcr.io/darrelltang/fffff-api:v0.0.11
+        image: ghcr.io/darrelltang/fffff-api:v0.0.12
         env:
         - name: PGPASSWORD
           valueFrom:
