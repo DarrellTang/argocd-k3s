@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: fffff-backend
-          image: 'ghcr.io/DarrellTang/fffff-backend:ghcr.io/darrelltang/fffff-backend:v0.1.12'
+          image: 'ghcr.io/darrelltang/fffff-backend:v0.1.13'
           env:
             - name: PGPASSWORD
               valueFrom:
