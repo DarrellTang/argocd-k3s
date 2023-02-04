@@ -13,20 +13,20 @@ spec:
         app: fffff-backend
     spec:
       containers:
-      - name: fffff-backend
-        image: ghcr.io/darrelltang/fffff-backend:v0.1.1
-        env:
-        - name: PGPASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-password
-              key: password
-        readinessProbe:
-          exec:
-            command:
-            - nc
-            - -z
-            - postgres
-            - "5432"
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
+        - name: fffff-backend
+          image: 'ghcr.io/DarrellTang/fffff-backend:'
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: password
+          readinessProbe:
+            exec:
+              command:
+                - nc
+                - -z
+                - postgres
+                - "5432"
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
