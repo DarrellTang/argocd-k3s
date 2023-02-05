@@ -116,12 +116,12 @@ data:
         , i.Name
         , l.hqworldname
         , l.hqdc
-        , l.hqsalevelocity
-        , l.hqprice
-        , l.hqhomeprice
-        , l.hqmargin
+        , floor(l.hqsalevelocity)
+        , floor(l.hqprice)
+        , floor(l.hqhomeprice)
+        , floor(l.hqmargin)
         , l.stacksize
-        , l.totalmargin
+        , floor(l.totalmargin)
         , l.updated AT TIME ZONE 'America/Los_Angeles'
       FROM 
         listings l
@@ -138,12 +138,12 @@ data:
         , i.Name
         , l.nqworldname
         , l.nqdc
-        , l.nqsalevelocity
-        , l.nqprice
-        , l.nqhomeprice
-        , l.nqmargin
+        , floor(l.nqsalevelocity)
+        , floor(l.nqprice)
+        , floor(l.nqhomeprice)
+        , floor(l.nqmargin)
         , l.stacksize
-        , l.totalmargin
+        , floor(l.totalmargin)
         , l.updated AT TIME ZONE 'America/Los_Angeles'
       FROM 
         listings l
